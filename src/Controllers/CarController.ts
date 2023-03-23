@@ -6,11 +6,13 @@ import ICar from '../Interfaces/ICar';
 class CarController {
   private res: Response;
   private req: Request;
+  // private next: NextFunction;
   private service: ICarService;
 
   constructor(req: Request, res: Response) {
     this.req = req;
     this.res = res;
+    // this.next = next;
     this.service = new ICarService();
   }
 
@@ -28,6 +30,22 @@ class CarController {
 
     const newCar = await this.service.createCar(car);
     return this.res.status(201).json(newCar);
+  }
+
+  public async getCars() {
+    const cars = await this.service.getCars();
+    return this.res.status(200).json(cars);
+  }
+
+  public async getCar() {
+    const { id } = this.req.params;
+    try {
+      const car = await this.service.getCar(id);
+      if (car === null) return this.res.status(422).json({ message: 'Invalid mongo id' });
+      return this.res.status(200).json(car);
+    } catch (error) {
+      return this.res.status(404).json({ message: 'Car not found' });
+    }
   }
 }
 
