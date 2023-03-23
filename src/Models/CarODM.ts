@@ -30,6 +30,15 @@ class CarODM {
     const result = await this.model.findOne({ _id: id });
     return result;
   }
+
+  public async updatedCar(id: string, obj: ICar): Promise<ICar | null> {
+    const filter = { _id: id };
+    const update = obj;
+    const result = await this.model.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    return result;
+  }
 }
 
 export default CarODM;

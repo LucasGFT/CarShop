@@ -50,3 +50,27 @@ describe('Criar rota /cars', function () {
     sinon.restore();
   });
 });
+
+// describe('modificar carro pela rota /cars/:id', function () {
+//   const carMock = new CarMock();
+//   it('id para modificacao estiver nao existir', async function () {
+//     sinon.stub(Model, 'findOne').resolves();
+//     const service = new CarService();
+//     try {
+//       await service.updateCar('6348513f34c397abcad060b8');
+//     } catch (error) {
+//       expect((error as Error).message).to.be.eq('Car not found');
+//     }
+//   });
+
+//   it('car modificado com sucesso', function () {
+//     sinon.stub(Model, 'findOne').resolves(carMock.InputOutReques);
+//     const service = new CarService();
+//     const result = await service.updateCar(
+//       '6348513f34c397abcad040b2',
+//       carMock.UpdateInputOutReques,
+//     );
+//     // tem que dar errado porque no equal to passando diferente
+//     expect(result).to.be.deep.equal(carMock.InputOutReques);
+//   });
+// });

@@ -32,6 +32,17 @@ export default class CarMock {
     seatsQty: 5,
   });
 
+  public UpdateInputOutReques: Car = new Car({
+    id: '6348513f34c397abcad040b2',
+    model: 'Gol',
+    year: 2002,
+    color: 'Blue',
+    status: true,
+    buyValue: 156.99,
+    doorsQty: 4,
+    seatsQty: 5,
+  });
+
   public InputOutRequesStatusFalse: Car = new Car({
     id: '6348513f34c397abcad040b2',
     model: 'Marea',

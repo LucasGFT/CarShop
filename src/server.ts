@@ -5,13 +5,11 @@ import connectToDatabase from './Models/Connection';
 const PORT = process.env.PORT || 3001;
 connectToDatabase()
   .then(() => {
-    app.listen(PORT);
-    // app.listen(PORT, () => console.log(`Running server on port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Running server on port: ${PORT}`));
   })
-  .catch(() => {
-    // .catch((error) => {
-    // console.log('Connection with database generated an error:\r\n');
-    // console.error(error);
-    // console.log('\r\nServer initialization cancelled');
+  .catch((error) => {
+    console.log('Connection with database generated an error:\r\n');
+    console.error(error);
+    console.log('\r\nServer initialization cancelled');
     process.exit(0);
   });
