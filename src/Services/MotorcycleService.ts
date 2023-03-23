@@ -41,6 +41,15 @@ class MotorcycleService implements IValidId {
     if (getCar) return this.createMotorcycleDomains(getCar);
     throw new Error('Motorcycle not found');
   }
+
+  public async updateMotorcycle(id: string, objUpdate: IMotorcycle) {
+    const validId = this.validId(id);
+    if (!validId) return null;
+    const motorcycleODM = new MotorcyclesODM();
+    const carUpdate = await motorcycleODM.updatedOneById(id, objUpdate);
+    if (carUpdate) return this.createMotorcycleDomains(carUpdate);
+    throw new Error('Motorcycle not found');
+  }
 }
 
 export default MotorcycleService;

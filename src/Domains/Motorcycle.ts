@@ -1,28 +1,21 @@
 import IMotorcycle from '../Interfaces/IMotorcycle';
+import Vehicle from './Vehicle';
 
-class Motorcycle {
-  protected id?: string;
-  protected model: string;
-  protected year: number;
-  protected color: string;
-  protected status: boolean;
-  protected buyValue: number;
+class Motorcycle extends Vehicle {
   private category: string;
   private engineCapacity: number;
 
   constructor(objMoto: IMotorcycle) {
-    this.id = objMoto.id;
-    this.model = objMoto.model;
-    this.year = objMoto.year;
-    this.color = objMoto.color;
-    this.status = objMoto.status || false;
-    this.buyValue = objMoto.buyValue;
+    super({
+      id: objMoto.id,
+      buyValue: objMoto.buyValue,
+      color: objMoto.color,
+      model: objMoto.model,
+      year: objMoto.year,
+      status: objMoto.status || false,
+    });
     this.category = objMoto.category;
     this.engineCapacity = objMoto.engineCapacity;
-  }
-
-  setId(id: string): void {
-    this.id = id;
   }
 
   setCategory(category: string): void {
@@ -31,32 +24,6 @@ class Motorcycle {
 
   setEngineCapacity(engineCapacity: number): void {
     this.engineCapacity = engineCapacity;
-  }
-
-  getId(): string | undefined {
-    if (this.id) return this.id;
-    return undefined;
-  }
-
-  getModel(): string {
-    return this.model;
-  }
-
-  getYear(): number {
-    return this.year;
-  }
-
-  getColor(): string {
-    return this.color;
-  }
-
-  getStatus(): boolean | undefined {
-    if (this.status) return this.status;
-    return undefined;
-  }
-
-  getBuyValue(): number {
-    return this.buyValue;
   }
 
   getCategory(): string {

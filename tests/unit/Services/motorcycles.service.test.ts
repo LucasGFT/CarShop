@@ -54,6 +54,41 @@ describe('Criar rota /motorcycles', function () {
     expect(result).to.be.deep.equal(null);
   });
 
+  it('id para modificar nao existir', async function () {
+    sinon.stub(Model, 'findOneAndUpdate').resolves();
+    const service = new MotorcycleService();
+    try {
+      await service.updateMotorcycle(
+        '6348513f34c397abcad060b8',
+        motorcycleMock.updatedMotorcycle,
+      );
+    } catch (error) {
+      expect((error as Error).message).to.be.eq('Motorcycle not found');
+    }
+  });
+  it('Retornar null ao tentar modificar moto passando id no formato errado', async function () {
+    sinon.stub(Model, 'findOneAndUpdate').resolves();
+    const service = new MotorcycleService();
+    const result = await service.updateMotorcycle(
+      '6348513f34c397abXXXXX',
+
+      motorcycleMock.updatedMotorcycle,
+    );
+    expect(result).to.be.deep.equal(null);
+  });
+  it('Possivel modificar moto', async function () {
+    sinon
+      .stub(Model, 'findOneAndUpdate')
+      .resolves(motorcycleMock.updatedMotorcycleComId);
+    const service = new MotorcycleService();
+    const result = await service.updateMotorcycle(
+      '641cb1b462e50315627c2050',
+
+      motorcycleMock.updatedMotorcycleComId,
+    );
+    expect(result).to.be.deep.equal(motorcycleMock.updatedMotorcycleComId);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

@@ -5,10 +5,9 @@ class ErrorHandler {
     error: Error,
     _req: Request,
     res: Response,
-    next: NextFunction,
+    _next: NextFunction,
   ) {
-    res.status(500).json({ message: error.message });
-    next();
+    return res.status(404).json({ message: error.message });
   }
 }
 

@@ -1,17 +1,17 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import CarService from '../Services/CarService';
 import ICar from '../Interfaces/ICar';
 
 class CarController {
   private res: Response;
   private req: Request;
-  // private next: NextFunction;
+  private next: NextFunction;
   private service: CarService;
 
-  constructor(req: Request, res: Response) {
+  constructor(req: Request, res: Response, next: NextFunction) {
     this.req = req;
     this.res = res;
-    // this.next = next;
+    this.next = next;
     this.service = new CarService();
   }
 
@@ -43,7 +43,7 @@ class CarController {
       if (car === null) return this.res.status(422).json({ message: 'Invalid mongo id' });
       return this.res.status(200).json(car);
     } catch (error) {
-      return this.res.status(404).json({ message: 'Car not found' });
+      this.next(error);
     }
   }
 
@@ -64,7 +64,7 @@ class CarController {
       if (carUpdate === null) return this.res.status(422).json({ message: 'Invalid mongo id' });
       return this.res.status(200).json(carUpdate);
     } catch (error) {
-      return this.res.status(404).json({ message: 'Car not found' });
+      this.next(error);
     }
   }
 }
