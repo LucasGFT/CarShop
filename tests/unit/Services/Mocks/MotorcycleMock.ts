@@ -53,6 +53,29 @@ export default class CarMock {
     engineCapacity: 600,
   });
 
+  private newMoto1: Motorcycle = new Motorcycle({
+    id: '6348513f34c397abcad040b2',
+    model: 'Marea',
+    year: 2002,
+    color: 'Black',
+    status: true,
+    buyValue: 15.99,
+    category: 'Street',
+    engineCapacity: 600,
+  });
+
+  private newMoto2: Motorcycle = new Motorcycle({
+    id: '6348513f14c397abcad060b2',
+    model: 'Gol',
+    year: 2002,
+    color: 'Black',
+    status: true,
+    buyValue: 15.99,
+    category: 'Street',
+    engineCapacity: 600,
+  });
+  public ArrayMotorcycles: Motorcycle[] = [this.newMoto1, this.newMoto2];
+
   //   private newCar1: Car = new Car({
   //     id: '6348513f34c397abcad040b2',
   //     model: 'Marea',

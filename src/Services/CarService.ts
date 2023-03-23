@@ -1,8 +1,9 @@
 import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
+import IValidId from '../Interfaces/IValidId';
 import CarODM from '../Models/CarODM';
 
-class CarService {
+class CarService implements IValidId {
   private createCarDomains(car: ICar) {
     return new Car(car);
   }
@@ -12,9 +13,9 @@ class CarService {
     return array;
   }
 
-  private validId(id: string) {
+  validId(id: string) {
     const regex = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i;
-    if (!regex.test(id)) return null;
+    if (!regex.test(id)) return false;
     return true;
   }
 
@@ -28,7 +29,7 @@ class CarService {
 
   public async getCars() {
     const carODM = new CarODM();
-    const getCars = await carODM.getCars();
+    const getCars = await carODM.getVehicles();
     return this.createArrayCarDomains(getCars);
   }
 
@@ -36,7 +37,7 @@ class CarService {
     const validId = this.validId(id);
     if (!validId) return null;
     const carODM = new CarODM();
-    const getCar = await carODM.getCar(id);
+    const getCar = await carODM.getVehicle(id);
     if (getCar) return this.createCarDomains(getCar);
     throw new Error('Car not found');
   }

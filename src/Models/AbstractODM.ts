@@ -13,12 +13,12 @@ class AbstractODM<T> {
     return this.model.create({ ...car });
   }
 
-  public async getCars(): Promise<T[]> {
+  public async getVehicles(): Promise<T[]> {
     const result = await this.model.find({});
     return result;
   }
 
-  public async getCar(id: string): Promise<T | null> {
+  public async getVehicle(id: string): Promise<T | null> {
     const result = await this.model.findOne({ _id: id });
     return result;
   }
