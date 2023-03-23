@@ -1,15 +1,6 @@
-import { Router } from 'express';
-import CarController from '../Controllers/CarController';
+import RoutesMotorcycles from './RoutesMotorcycles';
+import RoutesCar from './RoutesCar';
 
-const routes = Router();
-
-routes.post('/cars', (req, res, _next) =>
-  new CarController(req, res).create());
-routes.get('/cars', (req, res, _next) =>
-  new CarController(req, res).getCars());
-routes.get('/cars/:id', (req, res, _next) =>
-  new CarController(req, res).getCar());
-routes.put('/cars/:id', (req, res, _next) =>
-  new CarController(req, res).updatedCar());
+const routes = [RoutesMotorcycles, RoutesCar];
 
 export default routes;

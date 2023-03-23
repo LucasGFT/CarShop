@@ -46,31 +46,34 @@ describe('Criar rota /cars', function () {
     expect(result).to.be.deep.equal(null);
   });
 
+  it('id para modificacao estiver nao existir', async function () {
+    sinon.stub(Model, 'findOneAndUpdate').resolves();
+    const service = new CarService();
+    try {
+      await service.updatedCar('6348513f34c397abcad060b8', carMock.uptadedCar);
+    } catch (error) {
+      expect((error as Error).message).to.be.eq('Car not found');
+    }
+  });
+  it('Retornar null ao tentar modificar carro passando id no formato errado', async function () {
+    sinon.stub(Model, 'findOneAndUpdate').resolves();
+    const service = new CarService();
+    const result = await service.updatedCar(
+      '6348513f34c397abXXXXX',
+      carMock.uptadedCar,
+    );
+    expect(result).to.be.deep.equal(null);
+  });
+  it('Possivel modificar carro', async function () {
+    sinon.stub(Model, 'findOneAndUpdate').resolves(carMock.uptadedCarComId);
+    const service = new CarService();
+    const result = await service.updatedCar(
+      '641cb1b462e50315627c2050',
+      carMock.uptadedCarComId,
+    );
+    expect(result).to.be.deep.equal(carMock.uptadedCarComId);
+  });
   afterEach(function () {
     sinon.restore();
   });
 });
-
-// describe('modificar carro pela rota /cars/:id', function () {
-//   const carMock = new CarMock();
-//   it('id para modificacao estiver nao existir', async function () {
-//     sinon.stub(Model, 'findOne').resolves();
-//     const service = new CarService();
-//     try {
-//       await service.updateCar('6348513f34c397abcad060b8');
-//     } catch (error) {
-//       expect((error as Error).message).to.be.eq('Car not found');
-//     }
-//   });
-
-//   it('car modificado com sucesso', function () {
-//     sinon.stub(Model, 'findOne').resolves(carMock.InputOutReques);
-//     const service = new CarService();
-//     const result = await service.updateCar(
-//       '6348513f34c397abcad040b2',
-//       carMock.UpdateInputOutReques,
-//     );
-//     // tem que dar errado porque no equal to passando diferente
-//     expect(result).to.be.deep.equal(carMock.InputOutReques);
-//   });
-// });

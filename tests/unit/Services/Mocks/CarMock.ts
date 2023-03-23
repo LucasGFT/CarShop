@@ -76,4 +76,36 @@ export default class CarMock {
     seatsQty: 5,
   });
   public ArrayCar: Car[] = [this.newCar1, this.newCar2];
+
+  public uptadedCar: ICar = {
+    model: 'Corrola',
+    year: 2023,
+    color: 'Black',
+    status: true,
+    buyValue: 89000.99,
+    doorsQty: 4,
+    seatsQty: 5,
+  };
+
+  public uptadedCarComId1: ICar = {
+    id: '641cb1b462e50315627c2050',
+    model: 'Corrola',
+    year: 2023,
+    color: 'Black',
+    status: true,
+    buyValue: 89000.99,
+    doorsQty: 4,
+    seatsQty: 5,
+  };
+
+  public uptadedCarComId: ICar = {
+    id: '641cb1b462e50315627c2050',
+    model: 'Civic',
+    year: 2023,
+    color: 'Black',
+    status: true,
+    buyValue: 89000.99,
+    doorsQty: 4,
+    seatsQty: 5,
+  };
 }

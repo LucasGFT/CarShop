@@ -45,7 +45,7 @@ class CarService {
     const validId = this.validId(id);
     if (!validId) return null;
     const carODM = new CarODM();
-    const carUpdate = await carODM.updatedCar(id, objUpdate);
+    const carUpdate = await carODM.updatedOneById(id, objUpdate);
     if (carUpdate) return this.createCarDomains(carUpdate);
     throw new Error('Car not found');
   }

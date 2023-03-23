@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
-import ICarService from '../Services/CarService';
+import CarService from '../Services/CarService';
 import ICar from '../Interfaces/ICar';
 
 class CarController {
   private res: Response;
   private req: Request;
   // private next: NextFunction;
-  private service: ICarService;
+  private service: CarService;
 
   constructor(req: Request, res: Response) {
     this.req = req;
     this.res = res;
     // this.next = next;
-    this.service = new ICarService();
+    this.service = new CarService();
   }
 
   public async create() {
