@@ -3,13 +3,17 @@ import CarController from '../Controllers/CarController';
 
 const RoutesCar = Router();
 
-RoutesCar.post('/cars', (req, res, next) =>
+const url = '/cars';
+
+RoutesCar.post(url, (req, res, next) =>
   new CarController(req, res, next).create());
-RoutesCar.get('/cars', (req, res, next) =>
+RoutesCar.get(url, (req, res, next) =>
   new CarController(req, res, next).getCars());
-RoutesCar.get('/cars/:id', (req, res, next) =>
+RoutesCar.get(`${url}/:id`, (req, res, next) =>
   new CarController(req, res, next).getCar());
-RoutesCar.put('/cars/:id', (req, res, next) =>
+RoutesCar.put(`${url}/:id`, (req, res, next) =>
   new CarController(req, res, next).updatedCar());
+RoutesCar.delete(`${url}/:id`, (req, res, next) =>
+  new CarController(req, res, next).deletedCar());
 
 export default RoutesCar;

@@ -34,6 +34,14 @@ class AbstractODM<T> {
     });
     return result;
   }
+
+  public async deletedVehicle(id: string): Promise<T | null> {
+    const filter = { _id: id };
+    const result = await this.model.findByIdAndRemove(filter, {
+      new: true,
+    });
+    return result;
+  }
 }
 
 export default AbstractODM;

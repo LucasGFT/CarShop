@@ -6,6 +6,7 @@ import CarMock from './Mocks/CarMock';
 
 describe('Criar rota /cars', function () {
   const carMock = new CarMock();
+  const notFound = 'Car not found';
   it('É possivel cadastrar um carro', async function () {
     sinon.stub(Model, 'create').resolves(carMock.InputOutReques);
     const service = new CarService();
@@ -36,7 +37,7 @@ describe('Criar rota /cars', function () {
     try {
       await service.getCar('6348513f34c397abcad060b8');
     } catch (error) {
-      expect((error as Error).message).to.be.eq('Car not found');
+      expect((error as Error).message).to.be.eq(notFound);
     }
   });
   it('Retornar null ao passar id no formato errado', async function () {
@@ -52,7 +53,7 @@ describe('Criar rota /cars', function () {
     try {
       await service.updatedCar('6348513f34c397abcad060b8', carMock.uptadedCar);
     } catch (error) {
-      expect((error as Error).message).to.be.eq('Car not found');
+      expect((error as Error).message).to.be.eq(notFound);
     }
   });
   it('Retornar null ao tentar modificar carro passando id no formato errado', async function () {
@@ -73,6 +74,31 @@ describe('Criar rota /cars', function () {
     );
     expect(result).to.be.deep.equal(carMock.uptadedCarComId);
   });
+  it('Possivel excluir carro', async function () {
+    sinon.stub(Model, 'findByIdAndRemove').resolves(carMock.ArrayCar);
+    const service = new CarService();
+    const result = await service.deletedCar('6348513f14c397abcad060b2');
+    // o return undefined que dizer que passou pela validacao de id, e deletou com sucesso
+    expect(result).to.be.deep.equal(undefined);
+  });
+
+  it('id para exclusão nao existir', async function () {
+    sinon.stub(Model, 'findByIdAndRemove').resolves();
+    const service = new CarService();
+    try {
+      await service.deletedCar('6348513f14c397abcad060b2');
+    } catch (error) {
+      expect((error as Error).message).to.be.eq(notFound);
+    }
+  });
+
+  it('Retornar null ao tentar excluir carro passando id no formato errado', async function () {
+    sinon.stub(Model, 'findByIdAndRemove').resolves();
+    const service = new CarService();
+    const result = await service.deletedCar('6348513f34c397abXXXXX');
+    expect(result).to.be.deep.equal(null);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

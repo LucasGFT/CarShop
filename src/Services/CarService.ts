@@ -4,6 +4,8 @@ import IValidId from '../Interfaces/IValidId';
 import CarODM from '../Models/CarODM';
 
 class CarService implements IValidId {
+  private error = new Error('Car not found');
+
   private createCarDomains(car: ICar) {
     return new Car(car);
   }
@@ -39,7 +41,7 @@ class CarService implements IValidId {
     const carODM = new CarODM();
     const getCar = await carODM.getVehicle(id);
     if (getCar) return this.createCarDomains(getCar);
-    throw new Error('Car not found');
+    throw this.error;
   }
 
   public async updatedCar(id: string, objUpdate: ICar) {
@@ -48,7 +50,15 @@ class CarService implements IValidId {
     const carODM = new CarODM();
     const carUpdate = await carODM.updatedOneById(id, objUpdate);
     if (carUpdate) return this.createCarDomains(carUpdate);
-    throw new Error('Car not found');
+    throw this.error;
+  }
+
+  public async deletedCar(id: string) {
+    const validId = this.validId(id);
+    if (!validId) return null;
+    const carODM = new CarODM();
+    const result = await carODM.deletedVehicle(id);
+    if (!result) throw this.error;
   }
 }
 

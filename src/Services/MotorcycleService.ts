@@ -4,6 +4,8 @@ import IValidId from '../Interfaces/IValidId';
 import MotorcyclesODM from '../Models/MotorcyclesODM';
 
 class MotorcycleService implements IValidId {
+  private error = new Error('Motorcycle not found');
+
   validId(id: string): boolean {
     const regex = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i;
     if (!regex.test(id)) return false;
@@ -39,7 +41,7 @@ class MotorcycleService implements IValidId {
     const motorcycleODM = new MotorcyclesODM();
     const getCar = await motorcycleODM.getVehicle(id);
     if (getCar) return this.createMotorcycleDomains(getCar);
-    throw new Error('Motorcycle not found');
+    throw this.error;
   }
 
   public async updateMotorcycle(id: string, objUpdate: IMotorcycle) {
@@ -48,7 +50,15 @@ class MotorcycleService implements IValidId {
     const motorcycleODM = new MotorcyclesODM();
     const carUpdate = await motorcycleODM.updatedOneById(id, objUpdate);
     if (carUpdate) return this.createMotorcycleDomains(carUpdate);
-    throw new Error('Motorcycle not found');
+    throw this.error;
+  }
+
+  public async deletedMotorcycles(id: string) {
+    const validId = this.validId(id);
+    if (!validId) return null;
+    const motorcycleODM = new MotorcyclesODM();
+    const result = await motorcycleODM.deletedVehicle(id);
+    if (!result) throw this.error;
   }
 }
 

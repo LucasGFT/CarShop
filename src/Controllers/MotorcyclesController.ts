@@ -8,6 +8,8 @@ class MotorcyclesController {
   private service: MotorcycleService;
   private next: NextFunction;
 
+  private invalidMongoId = 'Invalid mongo id';
+
   constructor(req: Request, res: Response, next: NextFunction) {
     this.req = req;
     this.res = res;
@@ -40,7 +42,7 @@ class MotorcyclesController {
     const { id } = this.req.params;
     try {
       const car = await this.service.getMotorcycle(id);
-      if (car === null) return this.res.status(422).json({ message: 'Invalid mongo id' });
+      if (car === null) return this.res.status(422).json({ message: this.invalidMongoId });
       return this.res.status(200).json(car);
     } catch (error) {
       this.next(error);
@@ -63,10 +65,21 @@ class MotorcyclesController {
       const motorcycleUpdate = await this.service.updateMotorcycle(id, motorcycle);
       if (motorcycleUpdate === null) {
         return this.res.status(422).json(
-          { message: 'Invalid mongo id' },
+          { message: this.invalidMongoId },
         );
       }
       return this.res.status(200).json(motorcycleUpdate);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async deletedMotorcycles() {
+    const { id } = this.req.params;
+    try {
+      const carDeleted = await this.service.deletedMotorcycles(id);
+      if (carDeleted === null) return this.res.status(422).json({ message: this.invalidMongoId });
+      return this.res.status(204).json();
     } catch (error) {
       this.next(error);
     }

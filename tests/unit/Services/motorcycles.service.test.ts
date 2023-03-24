@@ -6,6 +6,7 @@ import MotorcycleMock from './Mocks/MotorcycleMock';
 
 describe('Criar rota /motorcycles', function () {
   const motorcycleMock = new MotorcycleMock();
+  const notFound = 'Motorcycle not found';
   it('É possivel cadastrar uma moto', async function () {
     sinon.stub(Model, 'create').resolves(motorcycleMock.InputOutReques);
     const service = new MotorcycleService();
@@ -43,7 +44,7 @@ describe('Criar rota /motorcycles', function () {
     try {
       await service.getMotorcycle('6348513f34c397abcad060b8');
     } catch (error) {
-      expect((error as Error).message).to.be.eq('Motorcycle not found');
+      expect((error as Error).message).to.be.eq(notFound);
     }
   });
 
@@ -63,7 +64,7 @@ describe('Criar rota /motorcycles', function () {
         motorcycleMock.updatedMotorcycle,
       );
     } catch (error) {
-      expect((error as Error).message).to.be.eq('Motorcycle not found');
+      expect((error as Error).message).to.be.eq(notFound);
     }
   });
   it('Retornar null ao tentar modificar moto passando id no formato errado', async function () {
@@ -87,6 +88,31 @@ describe('Criar rota /motorcycles', function () {
       motorcycleMock.updatedMotorcycleComId,
     );
     expect(result).to.be.deep.equal(motorcycleMock.updatedMotorcycleComId);
+  });
+
+  it('Possivel excluir moto', async function () {
+    sinon.stub(Model, 'findByIdAndRemove').resolves(motorcycleMock.ArrayMotorcycles);
+    const service = new MotorcycleService();
+    const result = await service.deletedMotorcycles('6348513f14c397abcad060b2');
+    // o return undefined que dizer que passou pela validacao de id, e deletou com sucesso
+    expect(result).to.be.deep.equal(undefined);
+  });
+
+  it('id para exclusão nao existir', async function () {
+    sinon.stub(Model, 'findByIdAndRemove').resolves();
+    const service = new MotorcycleService();
+    try {
+      await service.deletedMotorcycles('6348513f14c397abcad060b2');
+    } catch (error) {
+      expect((error as Error).message).to.be.eq(notFound);
+    }
+  });
+
+  it('Retornar null ao tentar excluir moto passando id no formato errado', async function () {
+    sinon.stub(Model, 'findByIdAndRemove').resolves();
+    const service = new MotorcycleService();
+    const result = await service.deletedMotorcycles('6348513f34c397abXXXXX');
+    expect(result).to.be.deep.equal(null);
   });
 
   afterEach(function () {
