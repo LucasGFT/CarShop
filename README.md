@@ -1,10 +1,30 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+
+# Car Shop
+
+Esse projeto é uma Api Rest que efetua o gerenciamento de carros e motos.
+
+
+
+
+## Stack utilizada
+
+**Arquitetura:** Arquitetura MSC
+
+**Back-end:** NodeJS, Express, Typescript, Programação Orientada a Objetos(POO), CRUD(Criar, Ler, Atualizar e Excluir), Mocha, Chai, Sinon.
+
+**Banco de Dados:** MongoDB, Mongoose
+## Feito por mim
+
+<details>
+ <summary><strong>Pastas e Arquivos feitos por mim </strong></summary><br />
+  <ul>
+    <li> src/Controllers/* </li>
+    <li> src/Interfaces/* </li>
+    <li> src/Middleware/* </li>
+    <li> src/Domains/* </li>
+    <li> src/Models/* </li>
+    <li> src/Routes/* </li>
+    <li> src/Services/* </li>
+    <li> tests/unit/Services/* </li>
+  </ul>
+ </details>
